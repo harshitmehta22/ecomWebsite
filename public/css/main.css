@@ -739,7 +739,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       border: 1px solid #f1f1f1; }
     .primary-checkbox input:checked + label {
-      background: url(../public/img/elements/primary-check.png) no-repeat center center/cover;
+      background: url(../img/elements/primary-check.png) no-repeat center center/cover;
       border: none; }
 
 .confirm-checkbox {
@@ -770,7 +770,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       border: 1px solid #f1f1f1; }
     .confirm-checkbox input:checked + label {
-      background: url(../public/img/elements/success-check.png) no-repeat center center/cover;
+      background: url(../img/elements/success-check.png) no-repeat center center/cover;
       border: none; }
 
 .disabled-checkbox {
@@ -804,7 +804,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: not-allowed;
       z-index: 3; }
     .disabled-checkbox input:checked + label {
-      background: url(../public/img/elements/disabled-check.png) no-repeat center center/cover;
+      background: url(../img/elements/disabled-check.png) no-repeat center center/cover;
       border: none; }
 
 .primary-radio {
@@ -835,7 +835,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       border: 1px solid #f1f1f1; }
     .primary-radio input:checked + label {
-      background: url(../public/img/elements/primary-radio.png) no-repeat center center/cover;
+      background: url(../img/elements/primary-radio.png) no-repeat center center/cover;
       border: none; }
 
 .confirm-radio {
@@ -866,7 +866,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       border: 1px solid #f1f1f1; }
     .confirm-radio input:checked + label {
-      background: url(../public/img/elements/success-radio.png) no-repeat center center/cover;
+      background: url(../img/elements/success-radio.png) no-repeat center center/cover;
       border: none; }
 
 .disabled-radio {
@@ -900,7 +900,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: not-allowed;
       z-index: 3; }
     .disabled-radio input:checked + label {
-      background: url(../public/img/elements/disabled-radio.png) no-repeat center center/cover;
+      background: url(../img/elements/disabled-radio.png) no-repeat center center/cover;
       border: none; }
 
 .default-select {
@@ -1206,7 +1206,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../public/img/banner/banner-bg.jpg) center no-repeat;
+  background: url(../img/banner/banner-bg.jpg) center no-repeat;
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {
@@ -1238,7 +1238,7 @@ h1, h2, h3, h4, h5, h6 {
       .banner-area .active-banner-slider .owl-nav .owl-next:hover {
         opacity: 1; }
   .banner-area .banner-content {
-    padding-left: 10px; text-align: left; }
+    padding-left: 10px; }
     @media (max-width: 991px) {
       .banner-area .banner-content {
         padding-left: 0; } }
@@ -1282,7 +1282,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #222222; }
 
 .organic-breadcrumb {
-  background: url(../public/img/banner/common-banner.jpg) center no-repeat;
+  background: url(../img/banner/common-banner.jpg) center no-repeat;
   background-size: cover;
   padding-top: 130px; }
   @media (max-width: 991px) {
@@ -1531,7 +1531,7 @@ h1, h2, h3, h4, h5, h6 {
       -o-transition: all 0.3s ease 0s;
       transition: all 0.3s ease 0s;
       overflow: hidden; }
-      .single-product .product-details .prd-bottom .social-info i {
+      .single-product .product-details .prd-bottom .social-info span {
         position: relative;
         height: 30px;
         width: 30px;
@@ -1590,7 +1590,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #f9f9ff; }
   .exclusive-deal-area .exclusive-left {
     position: realtive;
-    background: url(../public/img/exclusive.jpg) center no-repeat;
+    background: url(../img/exclusive.jpg) center no-repeat;
     background-size: cover;
     text-align: center;
     padding: 275px 0; }
@@ -1650,8 +1650,8 @@ h1, h2, h3, h4, h5, h6 {
       margin-top: 40px; }
   .exclusive-deal-area .exclusive-right {
     text-align: center; }
-    /* .exclusive-deal-area .exclusive-right .active-exclusive-product-slider {
-      padding: 0 230px; } */
+    .exclusive-deal-area .exclusive-right .active-exclusive-product-slider {
+      padding: 0 230px; }
       @media (max-width: 1440px) {
         .exclusive-deal-area .exclusive-right .active-exclusive-product-slider {
           padding: 0 130px; } }
@@ -1903,12 +1903,12 @@ h1, h2, h3, h4, h5, h6 {
       background-size: cover;
       margin-left: 10px; }
       .quick-view-carousel-details .owl-controls .owl-dots .owl-dot:nth-child(1) {
-        background: url(../public/img/ob1.jpg);
+        background: url(../img/ob1.jpg);
         margin-left: 0; }
       .quick-view-carousel-details .owl-controls .owl-dots .owl-dot:nth-child(2) {
-        background: url(../public/img/ob2.jpg); }
+        background: url(../img/ob2.jpg); }
       .quick-view-carousel-details .owl-controls .owl-dots .owl-dot:nth-child(3) {
-        background: url(../public/img/ob3.jpg); }
+        background: url(../img/ob3.jpg); }
       .quick-view-carousel-details .owl-controls .owl-dots .owl-dot.active {
         box-shadow: 2.828px 2.828px 15px 0px rgba(0, 0, 0, 0.1);
         position: relative; }
@@ -1922,12 +1922,12 @@ h1, h2, h3, h4, h5, h6 {
           top: 0; }
 
 .organic-body .quick-view-carousel .owl-controls .owl-dots .owl-dot:nth-child(1) {
-  background: url(../public/img/organic-food/ob1.jpg);
+  background: url(../img/organic-food/ob1.jpg);
   margin-left: 0; }
 .organic-body .quick-view-carousel .owl-controls .owl-dots .owl-dot:nth-child(2) {
-  background: url(../public/img/organic-food/ob2.jpg); }
+  background: url(../img/organic-food/ob2.jpg); }
 .organic-body .quick-view-carousel .owl-controls .owl-dots .owl-dot:nth-child(3) {
-  background: url(../public/img/organic-food/ob3.jpg); }
+  background: url(../img/organic-food/ob3.jpg); }
 .organic-body .organic span {
   color: #fff; }
 
@@ -2560,7 +2560,7 @@ label {
       content: "";
       height: 1px;
       width: 500px;
-      /* background: url(../public/img/logo/title-line.png) repeat; */
+      background: url(../img/logo/title-line.png) repeat;
       top: 50%;
       right: 120%;
       transform: translateY(-50%); }
@@ -2569,7 +2569,7 @@ label {
       content: "";
       height: 1px;
       width: 500px;
-      /* background: url(../public/img/logo/title-line.png) repeat; */
+      background: url(../img/logo/title-line.png) repeat;
       top: 50%;
       left: 120%;
       transform: translateY(-50%); }
@@ -2588,7 +2588,7 @@ label {
       content: "";
       height: 1px;
       width: 200px;
-      /* background: url(../public/img/logo/title-line.png) repeat; */
+      background: url(../img/logo/title-line.png) repeat;
       top: 50%;
       right: 107%;
       transform: translateY(-50%); }
@@ -2597,7 +2597,7 @@ label {
       content: "";
       height: 1px;
       width: 2000px;
-      /* background: url(../public/img/logo/title-line.png) repeat; */
+      background: url(../img/logo/title-line.png) repeat;
       top: 50%;
       left: 107%;
       transform: translateY(-50%); }
@@ -2658,7 +2658,7 @@ label {
   border-radius: 50%;
   transform: rotate(-25deg);
   position: absolute;
-  /* background: url(../public/img/logo/discount-shape.svg) no-repeat center center/cover; */
+  background: url(../img/logo/discount-shape.svg) no-repeat center center/cover;
   z-index: 5; }
   .banner-discount .offer {
     margin-top: 7px;
@@ -5791,5 +5791,3 @@ label {
     color: #ffba00; }
 
 /*# sourceMappingURL=main.css.map */
-
-
