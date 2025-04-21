@@ -5,6 +5,9 @@ import Feature from "../components/features/feature";
 import Category from "../components/category/category";
 import Product from "../components/product/product";
 import ExclusiveDeals from "../components/exclusivedeals/exclusivedeals";
+import Brand from "../components/brand/brand";
+import RelatedProducts from "../components/relatedproducts/relatedProducts";
+import Footer from "../components/footer/footer";
 const Home = () => {
     return(
         <>
@@ -15,6 +18,9 @@ const Home = () => {
             <Category/>
             <Product/>
             <ExclusiveDeals/>
+            <Brand/>
+            <RelatedProducts/>
+            <Footer/>
          </div>
         </>
     )

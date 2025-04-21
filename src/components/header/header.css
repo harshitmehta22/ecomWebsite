@@ -1,0 +1,23 @@
+.sticky-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: white; /* or transparent depending on your theme */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  .sticky-header nav.navbar.navbar-expand-lg.navbar-light.main_box {
+    max-width: 100%;
+}
+.search_input {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .search_input.open {
+    max-height: 100px;
+    opacity: 1;
+  }
