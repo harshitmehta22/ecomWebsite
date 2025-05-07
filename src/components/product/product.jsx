@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartslice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/cartslice";
 
 const Product = () => {
 	const [products, setProducts] = useState([]);
 	const dispatch = useDispatch();
 
-	const handleAddToCart = () => {
-		dispatch(addToCart(products));
+	const handleAddToCart = (e, product) => {
+		e.preventDefault(); // Prevent the link from refreshing the page
+		dispatch(addToCart(product));
+		console.log(product, "coming here")
 	};
+	const cart = useSelector(state => state.cart);
 
 	useEffect(() => {
 		axios.get(" http://localhost:5000/api/getproduct")
@@ -20,6 +23,7 @@ const Product = () => {
 				console.error("Failed to fetch products:", err);
 			});
 	}, []);
+
 	return (
 		<>
 			<section class="active-product-area section_gap">
@@ -37,46 +41,49 @@ const Product = () => {
 						</div>
 						<div class="row">
 							{products?.map((product) => {
+								const cartItem = cart.find(item => item._id === product._id); // ✅ safe now
+								const quantity = cartItem ? cartItem.quantity : 0;
 								return (
-									<>
-										<div class="col-lg-3 col-md-6">
-											<div class="single-product">
-												<img class="img-fluid" src={`http://localhost:5000/uploads/${product.image}`} alt="" />
-												<div class="product-details">
-													<h6>{product.brand}</h6>
-													<div class="price">
-														<h6>${product.price}</h6>
-														{/* {product.originalPrice && (
+									<div class="col-lg-3 col-md-6" key={product._id || product.id || product.image}>
+										<div class="single-product">
+											<img class="img-fluid" src={`http://localhost:5000/uploads/${product.image}`} alt="" />
+											<div class="product-details">
+												<h6>{product.brand}</h6>
+												<div class="price">
+													<h6>${product.price}</h6>
+													{/* {product.originalPrice && (
 														<h6 className="l-through">${product.originalPrice}</h6>
 													)} */}
-													</div>
-													<div class="d-flex justify-content-between mt-2">
-														<span><strong>Size:</strong> {product.size}</span>
-														<span><strong>Color:</strong> {product.color}</span>
-													</div>
-													<div class="prd-bottom">
-
-														<a href="" class="social-info" onClick={handleAddToCart}>
-															<i class="ti-bag fa-solid fa-bag-shopping"></i>
-															<p class="hover-text">add to bag</p>
-														</a>
-														<a href="" class="social-info">
-															<i class="fa-regular fa-heart"></i>
-															<p class="hover-text">Wishlist</p>
-														</a>
-														<a href="" class="social-info">
-															<i class="fa-solid fa-up-down-left-right"></i>
-															<p class="hover-text">view more</p>
-														</a>
-													</div>
 												</div>
+												<div class="d-flex justify-content-between mt-2">
+													<span><strong>Size:</strong> {product.size}</span>
+													<span><strong>Color:</strong> {product.color}</span>
+												</div>
+												<div class="prd-bottom">
 
+													<div className="prd d-flex align-items-center gap-2">
+														<button onClick={() => dispatch(removeFromCart(product))} className="btn btn-outline-secondary">−</button>
+														<span>{quantity}</span>
+														<button onClick={() => dispatch(addToCart(product))} className="btn btn-outline-secondary">+</button>
+													</div>
+													<a href="" class="social-info ml-2">
+														<i class="fa-regular fa-heart"></i>
+														<p class="hover-text">Wishlist</p>
+													</a>
+													<a href="" class="social-info">
+														<i class="fa-solid fa-up-down-left-right"></i>
+														<p class="hover-text">view more</p>
+													</a>
+												</div>
 											</div>
-										</div>
-									</>
-								)
 
+										</div>
+									</div>
+
+								)
 							})}
+
+
 							{/* <div class="col-lg-3 col-md-6">
 								<div class="single-product">
 									<img class="img-fluid" src="img/product/p2.jpg" alt="" />

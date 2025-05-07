@@ -17,7 +17,8 @@ const Login = () => {
       const response = await axios.post("http://localhost:5000/api/auth/login", formData);
       console.log("Login successful:", response.data);
       // Store token or user info if needed
-      // localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
       navigate("/"); // Navigate to a protected page
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);

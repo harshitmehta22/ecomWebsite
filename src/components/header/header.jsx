@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
 	const [showSearch, setShowSearch] = useState(false);
+	const navigate = useNavigate();
+	const cart = useSelector((state) => state.cart);
+	const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 	useEffect(() => {
 		const handleScroll = () => {
 			const header = document.getElementById('header');
@@ -20,12 +24,18 @@ const Header = () => {
 	const toggleSearch = () => {
 		setShowSearch((prev) => !prev);
 	};
+	const token = localStorage.getItem('token');
+	const handleLogout = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		navigate('/login');
+	};
 	return (
 		<header class="header_area sticky-header" id="header">
 			<div class="main_menu">
 				<nav class="navbar navbar-expand-lg navbar-light main_box">
 					<div class="container">
-						<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt="" /></a>
+						<a class="navbar-brand logo_h" href="index.html"><h4 style={{ marginBottom: '0px' }}>CBH</h4></a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 							aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="icon-bar"></span>
@@ -66,14 +76,25 @@ const Header = () => {
 								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="fa-solid fa-cart-shopping" style={{ color: 'black' }}></i></a></li>
+								<li class="nav-item"><a href="#" class="cart">
+									<Link to="/cart" className="cart-link">
+										<i class="fa-solid fa-cart-shopping" style={{ color: 'black' }}></i>
+										{cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+									</Link>
+								</a></li>
 								<li class="nav-item">
 									<button class="search" onClick={toggleSearch}><i class="fa-solid fa-magnifying-glass"></i></button>
 								</li>
 								<li className="nav-item">
-									<Link to="/login">
-										<i className="fa-solid fa-user" style={{ color: 'black', cursor: 'pointer' }}></i>
-									</Link>
+									{token ? (
+										<button onClick={handleLogout} className="btn btn-link nav-link" style={{ padding: 0 }}>
+											Logout
+										</button>
+									) : (
+										<Link to="/login">
+											<i className="fa-solid fa-user" style={{ color: 'black', cursor: 'pointer' }}></i>
+										</Link>
+									)}
 								</li>
 							</ul>
 						</div>

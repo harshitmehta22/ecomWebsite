@@ -21,7 +21,19 @@
   @media (max-width: 991px) {
     .section_gap_top_75 {
       padding: 70px 0; } }
-
+      .cart-count {
+        position: absolute;
+        top: 3px;
+        background: red;
+        line-height: 17px !important;
+        color: white;
+        border-radius: 50%;
+        padding: 3px 4px;
+        font-size: 12px;
+        text-align: center;
+        width: 22px;
+        align-content: space-around;
+    }
 .section_gap_75 {
   padding: 75px 0; }
   @media (max-width: 991px) {
@@ -1520,8 +1532,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #cccccc;
     margin-bottom: 0; }
   .single-product .product-details .prd-bottom {
-    position: relative;
-    margin-top: 20px; }
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+   }
     .single-product .product-details .prd-bottom .social-info {
       position: relative;
       display: inline-block;
