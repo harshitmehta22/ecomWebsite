@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import './register.css';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { io } from "socket.io-client";
+
+let socket;
 const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -9,9 +12,18 @@ const Register = () => {
     mobile: '',
     password: ''
   });
-
+  
   const navigate = useNavigate();
+  
+  React.useEffect(() => {
+    socket = io('http://localhost:5000', {
+      transports: ['websocket']
+    });
 
+    return () => {
+      if (socket) socket.disconnect();
+    };
+  }, []);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -30,6 +42,14 @@ const Register = () => {
         alert("Registration successful!");
         navigate("/login");
       }
+      socket.emit('sendNotification', {
+        message: `New user signed up: ${formData.username}`,
+        username: formData.username,
+        email: formData.email,
+        role: 'User'
+      });
+     
+
     } catch (error) {
       console.error("Registration error:", error);
       alert("Something went wrong! Please try again.");
