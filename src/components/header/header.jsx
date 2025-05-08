@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useCart } from '../../CartContext';
 
 const Header = () => {
 	const [showSearch, setShowSearch] = useState(false);
 	const navigate = useNavigate();
-	const cart = useSelector((state) => state.cart);
+	const { cart } = useCart();
 	const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 	useEffect(() => {
 		const handleScroll = () => {

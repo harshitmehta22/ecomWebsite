@@ -1,18 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../redux/cartslice";
+import { useCart } from "../../CartContext";
 
 const Product = () => {
 	const [products, setProducts] = useState([]);
-	const dispatch = useDispatch();
-
-	const handleAddToCart = (e, product) => {
-		e.preventDefault(); // Prevent the link from refreshing the page
-		dispatch(addToCart(product));
-		console.log(product, "coming here")
-	};
-	const cart = useSelector(state => state.cart);
+	const { cart, addToCart, removeFromCart } = useCart();
 
 	useEffect(() => {
 		axios.get(" http://localhost:5000/api/getproduct")
@@ -62,9 +54,9 @@ const Product = () => {
 												<div class="prd-bottom">
 
 													<div className="prd d-flex align-items-center gap-2">
-														<button onClick={() => dispatch(removeFromCart(product))} className="btn btn-outline-secondary">−</button>
+														<button onClick={() => removeFromCart(product)} className="btn btn-outline-secondary">−</button>
 														<span>{quantity}</span>
-														<button onClick={() => dispatch(addToCart(product))} className="btn btn-outline-secondary">+</button>
+														<button onClick={() => addToCart(product)} className="btn btn-outline-secondary">+</button>
 													</div>
 													<a href="" class="social-info ml-2">
 														<i class="fa-regular fa-heart"></i>
