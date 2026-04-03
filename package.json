@@ -9,7 +9,13 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.8.4",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.3",
+    "nodemon": "^3.1.14",
     "owl.carousel": "^2.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -25,7 +31,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon backend/server.js",
+    "seed": "node backend/scripts/seedProducts.js",
+    "admin": "cd admin-frontend && npm start"
   },
   "eslintConfig": {
     "extends": [

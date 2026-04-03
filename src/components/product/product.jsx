@@ -7,7 +7,7 @@ const Product = () => {
 	const { cart, addToCart, removeFromCart } = useCart();
 
 	useEffect(() => {
-		axios.get(" http://localhost:5000/api/getproduct")
+		axios.get("http://localhost:5000/api/getproduct")
 			.then(res => {
 				setProducts(res.data.product); // Update this line if your API wraps products inside a key
 			})
