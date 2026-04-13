@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/home';
+import Category from './pages/category';
+import ProductDetails from './pages/productDetails';
 import Login from './pages/login/login'
 import Register from './pages/register/register';
 import ProtectedRoute from './components/protectedRoute';
@@ -18,6 +20,8 @@ const App = () => {
             {/* Protected Routes Group */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
             </Route>
 

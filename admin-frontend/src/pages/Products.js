@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Container, Typography, Button, Table, TableBody, TableCell, TableContainer,
   TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, TextField,
-  DialogActions, IconButton
+  DialogActions, IconButton, FormControlLabel, Checkbox, FormGroup
 } from '@mui/material';
 import { Edit, Delete, Add } from '@mui/icons-material';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const Products = () => {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState({
-    title: '', brand: '', description: '', price: '', color: '', size: '', image: '', stock: ''
+    title: '', brand: '', description: '', price: '', color: '', size: [], image: null, stock: ''
   });
 
   useEffect(() => {
@@ -31,10 +31,10 @@ const Products = () => {
   const handleOpen = (product = null) => {
     if (product) {
       setEditing(product);
-      setFormData(product);
+      setFormData({ ...product, size: product.size || [], image: null });
     } else {
       setEditing(null);
-      setFormData({ title: '', brand: '', description: '', price: '', color: '', size: '', image: '', stock: '' });
+      setFormData({ title: '', brand: '', description: '', price: '', color: '', size: [], image: null, stock: '' });
     }
     setOpen(true);
   };
@@ -44,16 +44,41 @@ const Products = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      if (checked) {
+        setFormData({ ...formData, size: [...formData.size, value] });
+      } else {
+        setFormData({ ...formData, size: formData.size.filter(s => s !== value) });
+      }
+    } else if (type === 'file') {
+      setFormData({ ...formData, [name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async () => {
     try {
+      const data = new FormData();
+      Object.keys(formData).forEach(key => {
+        if (key === 'size') {
+          data.append(key, JSON.stringify(formData[key]));
+        } else if (key === 'image' && formData[key]) {
+          data.append(key, formData[key]);
+        } else if (key !== 'image') {
+          data.append(key, formData[key]);
+        }
+      });
+
       if (editing) {
-        // For update, assuming backend has PUT /api/products/:id
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/products/${editing._id}`, formData);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/products/${editing._id}`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
       } else {
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/addproduct`, formData);
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/addproduct`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
       }
       fetchProducts();
       handleClose();
@@ -87,6 +112,7 @@ const Products = () => {
               <TableCell>Title</TableCell>
               <TableCell>Brand</TableCell>
               <TableCell>Price</TableCell>
+              <TableCell>Size</TableCell>
               <TableCell>Stock</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -97,6 +123,7 @@ const Products = () => {
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.brand}</TableCell>
                 <TableCell>${product.price}</TableCell>
+                <TableCell>{product.size.join(', ')}</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpen(product)}>
@@ -120,8 +147,37 @@ const Products = () => {
           <TextField fullWidth margin="dense" label="Description" name="description" value={formData.description} onChange={handleChange} />
           <TextField fullWidth margin="dense" label="Price" name="price" type="number" value={formData.price} onChange={handleChange} />
           <TextField fullWidth margin="dense" label="Color" name="color" value={formData.color} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Size" name="size" value={formData.size} onChange={handleChange} />
-          <TextField fullWidth margin="dense" label="Image URL" name="image" value={formData.image} onChange={handleChange} />
+          <Typography variant="subtitle1">Sizes</Typography>
+          <FormGroup row>
+            {['5', '6', '7', '8', '9'].map(size => (
+              <FormControlLabel
+                key={size}
+                control={
+                  <Checkbox
+                    checked={formData.size.includes(size)}
+                    onChange={handleChange}
+                    value={size}
+                    name="size"
+                  />
+                }
+                label={size}
+              />
+            ))}
+          </FormGroup>
+          <input
+            accept="image/*"
+            style={{ display: 'none' }}
+            id="image-file"
+            type="file"
+            name="image"
+            onChange={handleChange}
+          />
+          <label htmlFor="image-file">
+            <Button variant="contained" component="span">
+              Upload Image
+            </Button>
+          </label>
+          {formData.image && <Typography>{formData.image.name}</Typography>}
           <TextField fullWidth margin="dense" label="Stock" name="stock" type="number" value={formData.stock} onChange={handleChange} />
         </DialogContent>
         <DialogActions>

@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Employees from './pages/Employees';
+import Users from './pages/Users';
 
 const theme = createTheme();
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/employees" element={<Employees />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
       </Router>
     </ThemeProvider>
