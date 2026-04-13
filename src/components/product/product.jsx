@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../../CartContext";
 
 const Product = () => {
@@ -38,14 +39,27 @@ const Product = () => {
 								return (
 									<div class="col-lg-3 col-md-6" key={product._id || product.id || product.image}>
 										<div class="single-product">
+										<Link to={`/product/${product._id}`} className="product-link">
 											<img class="img-fluid" src={`http://localhost:5000/uploads/${product.image}`} alt="" />
-											<div class="product-details">
+										</Link>
+										{product.stock <= 0 && (
+											<div className="stock-badge out-of-stock">Out of Stock</div>
+										)}
+										{product.stock > 0 && (
+											<div className="stock-badge in-stock">In Stock</div>
+										)}
+										<div class="product-details">
 												<h6>{product.brand}</h6>
 												<div class="price">
-													<h6>${product.price}</h6>
-													{/* {product.originalPrice && (
-														<h6 className="l-through">${product.originalPrice}</h6>
-													)} */}
+													{product.originalPrice && product.originalPrice > product.price ? (
+														<>
+															<h6>${product.price}</h6>
+															<h6 className="l-through">${product.originalPrice}</h6>
+															<span className="discount-amount">Save ${(product.originalPrice - product.price).toFixed(2)}</span>
+														</>
+													) : (
+														<h6>${product.price}</h6>
+													)}
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 													<span><strong>Size:</strong> {product.size}</span>
@@ -54,9 +68,15 @@ const Product = () => {
 												<div class="prd-bottom">
 
 													<div className="prd d-flex align-items-center gap-2">
-														<button onClick={() => removeFromCart(product)} className="btn btn-outline-secondary">−</button>
-														<span>{quantity}</span>
-														<button onClick={() => addToCart(product)} className="btn btn-outline-secondary">+</button>
+													{product.stock > 0 ? (
+														<>
+															<button onClick={() => removeFromCart(product)} className="btn btn-outline-secondary">−</button>
+															<span>{quantity}</span>
+															<button onClick={() => addToCart(product)} className="btn btn-outline-secondary">+</button>
+														</>
+													) : (
+														<button disabled className="btn btn-outline-secondary">Unavailable</button>
+													)}
 													</div>
 													<a href="" class="social-info ml-2">
 														<i class="fa-regular fa-heart"></i>

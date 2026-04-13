@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
+const multer = require('multer');
 
 dotenv.config();
 
@@ -11,6 +12,17 @@ const productRoutes = require('./routes/product');
 const userRoutes = require('./routes/users');
 
 const app = express();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 
 const allowedOrigins = [
   process.env.CLIENT_ORIGIN || 'http://localhost:3000'
